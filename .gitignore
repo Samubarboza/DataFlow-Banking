@@ -1,2 +1,18 @@
+# Bases de datos creadas por el programa
+*.db
+
+# Archivos generados por el pipeline
+data/outputs/
+data/processed/
+
+# Archivos CSV/JSON/PARQUET generados
+*.csv
+*.json
+*.parquet
+
+# Entorno virtual
 .venv/
-db/banco.db
+
+# Cachés de Python
+__pycache__/
+*.pyc

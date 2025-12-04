@@ -1,64 +1,58 @@
+import time
 import sqlite3
 from pathlib import Path
 
-from etl.extract import run_extract
+from etl.extract import run_extract_completo
 from etl.transform import run_transform
 from etl.load import run_load
-
-
-def ejecutar_consulta(con, sql):
-    cur = con.cursor()
-    cur.execute(sql)
-    return cur.fetchall()
-
-
-def mostrar_resultado(nombre, filas):
-    print(f"\n=== {nombre} ===")
-    for fila in filas:
-        print(fila)
+from etl.utils import log
 
 
 def run_pipeline():
+    inicio = time.time()
     print("\n==============================")
-    print("  Ejecutando Pipeline Completo")
+    print("    Ejecutando Pipeline")
     print("==============================\n")
 
-    # 1) Extract
-    raw_clientes, raw_cuentas, raw_trans = run_extract()
+    log("Inicio del pipeline completo")
 
-    # 2) Transform
-    clientes_clean, cuentas_clean, trans_clean = run_transform(
-        raw_clientes, raw_cuentas, raw_trans
-    )
+    try:
+        # 1) EXTRACT
+        print("→ Extrayendo datos...")
+        data = run_extract_completo()
+        log("Extracción completa")
 
-    # 3) Load
-    run_load(clientes_clean, cuentas_clean, trans_clean)
-    print(clientes_clean)
+        # 2) TRANSFORM
+        print("→ Transformando datos...")
+        clientes_clean, cuentas_clean, trans_clean = run_transform(data)
+        log("Transformación completa")
 
-    print("\n--- Pipeline ejecutado ---\n")
+        # 3) LOAD
+        print("→ Cargando datos y generando outputs...")
+        run_load(clientes_clean, cuentas_clean, trans_clean)
+        log("Carga finalizada")
 
-    # 4) Ejecutar un par de consultas SQL para mostrar "poder"
+        print("\n--- Pipeline ejecutado correctamente ---\n")
+
+    except Exception as e:
+        log(f"ERROR en pipeline: {e}")
+
+        print("\nError crítico durante la ejecución del pipeline.")
+        print(str(e))
+        return
+    # Ejecución de consultas SQL de muestr
+    print("→ Ejecutando consultas demo en SQLite...\n")
     BASE = Path(__file__).resolve().parent
     con = sqlite3.connect(BASE / "db" / "banco.db")
 
-    # Consulta 1: total de clientes
-    filas = ejecutar_consulta(con, "SELECT COUNT(*) FROM clientes;")
-    mostrar_resultado("Total de clientes", filas)
+    def query(sql):
+        return con.execute(sql).fetchall()
 
-    # Consulta 2: saldo promedio por tipo de cuenta
-    filas = ejecutar_consulta(
-        con,
-        """
-        SELECT tipo_cuenta, AVG(saldo_inicial)
-        FROM cuentas
-        GROUP BY tipo_cuenta;
-        """
-    )
-    mostrar_resultado("Saldo promedio por tipo de cuenta", filas)
-
-    # Consulta 3: top clientes por monto total
-    filas = ejecutar_consulta(
-        con,
+    print("Total de clientes:", query("SELECT COUNT(*) FROM clientes;"))
+    print("Saldo promedio por tipo:", query(
+        "SELECT tipo_cuenta, AVG(saldo_inicial) FROM cuentas GROUP BY tipo_cuenta;"
+    ))
+    print("Top movimientos:", query(
         """
         SELECT cli.nombre, SUM(tr.monto) AS total
         FROM transacciones tr
@@ -68,12 +62,15 @@ def run_pipeline():
         ORDER BY total DESC
         LIMIT 5;
         """
-    )
-    mostrar_resultado("Top clientes por movimiento", filas)
+    ))
 
     con.close()
+    # Tiempo tota
+    fin = time.time()
+    duracion = round(fin - inicio, 2)
 
-    print("\nPipeline completado con éxito.")
+    log(f"Pipeline finalizado en {duracion} segundos")
+    print(f"\nPipeline completado en {duracion} segundos.\n")
 
 
 if __name__ == "__main__":
