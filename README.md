@@ -15,7 +15,7 @@ Todo el sistema está diseñado con **arquitectura modular**, **logging en SQLit
 
 ## **Arquitectura General**
 
-``
+```markdown
 root/
 │
 ├── etl/                     # Lógica del pipeline (Extract / Transform / Load)
@@ -48,7 +48,7 @@ root/
 │   └── banco.db             # Base de datos final del modelo
 │
 └── run_pipeline.py          # Script principal del ETL
-``
+```
 
 ---
 
