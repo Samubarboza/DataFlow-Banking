@@ -52,6 +52,7 @@ def run_pipeline():
     print("Saldo promedio por tipo:", query(
         "SELECT tipo_cuenta, AVG(saldo_inicial) FROM cuentas GROUP BY tipo_cuenta;"
     ))
+    # consulta sql
     print("Top movimientos:", query(
         """
         SELECT cli.nombre, SUM(tr.monto) AS total
