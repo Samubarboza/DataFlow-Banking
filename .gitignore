@@ -16,3 +16,5 @@ data/processed/
 # Cachés de Python
 __pycache__/
 *.pyc
+
+prueba.py

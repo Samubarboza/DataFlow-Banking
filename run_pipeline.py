@@ -10,9 +10,7 @@ from etl.utils import log
 
 def run_pipeline():
     inicio = time.time()
-    print("\n==============================")
-    print("    Ejecutando Pipeline")
-    print("==============================\n")
+    print("\n==============================\n    Ejecutando Pipeline\n==============================\n")
 
     log("Inicio del pipeline completo")
 
@@ -68,7 +66,7 @@ def run_pipeline():
     con.close()
     # Tiempo tota
     fin = time.time()
-    duracion = round(fin - inicio, 2)
+    duracion = round(fin - inicio, 2) # redondeamos el resultado con 2 decimales nada mas
 
     log(f"Pipeline finalizado en {duracion} segundos")
     print(f"\nPipeline completado en {duracion} segundos.\n")
