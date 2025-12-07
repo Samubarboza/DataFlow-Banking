@@ -40,7 +40,7 @@ SETTINGS = load_settings()
 
 # Logging centralizado
 logging.basicConfig(
-    filename=SETTINGS["logging"],
+    filename=SETTINGS["logging"]['file'],
     level=logging.INFO,
     # formato de cada linea de logs que se guarda - % placeholder donde insertar un valor - s valor a insertar como strings
     format="%(asctime)s - %(levelname)s - %(message)s" 

@@ -23,6 +23,7 @@
     },
 
     "logging": {
+        "file": "logs/etl_logs.db",
         "level": "INFO"
     }
 }
