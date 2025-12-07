@@ -1,0 +1,17 @@
+{
+    "rangos_monto": {
+        "DEBITO": { "min": -5000000, "max": 5000000 },
+        "CREDITO": { "min": -5000000, "max": 5000000 }
+    },
+
+    "edad_valida": {
+        "min": 18,
+        "max": 99
+    },
+
+    "fecha": {
+        "max_future_days": 0
+    },
+
+    "monedas_validas": ["USD", "PYG"]
+}

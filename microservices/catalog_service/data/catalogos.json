@@ -1,0 +1,36 @@
+{
+    "tipo_transaccion": {
+        "debito": "DEBITO",
+        "DEBITO": "DEBITO",
+        "DEBITO ": "DEBITO",
+        "16\"": "DEBITO",
+
+        "credito": "CREDITO",
+        "CREDITO": "CREDITO",
+        "55\"": "CREDITO"
+    },
+
+    "canal": {
+        "ATM": "ATM",
+        "CAJERO": "CAJERO",
+        "online": "ONLINE",
+        "ONLINE": "ONLINE",
+        "OnLine": "ONLINE",
+        "app": "APP",
+        "APP": "APP"
+    },
+
+    "moneda": {
+        "PYG": "PYG",
+        "pyg": "PYG",
+        "USD": "USD",
+        "usd": "USD"
+    },
+
+    "tipo_cuenta": {
+        "ca": "CA",
+        "CA": "CA",
+        "cc": "CC",
+        "CC": "CC"
+    }
+}

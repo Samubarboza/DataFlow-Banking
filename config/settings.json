@@ -1,0 +1,28 @@
+{
+    "microservices": {
+        "catalog_service_url": "http://localhost:5001",
+        "risk_rules_service_url": "http://localhost:5002"
+    },
+
+    "paths": {
+        "raw": "data/raw/",
+        "processed": "data/processed/",
+        "outputs": "data/outputs/"
+    },
+
+    "files": {
+        "clientes": "clientes.csv",
+        "cuentas": "cuentas.csv",
+        "transacciones": "transacciones.csv"
+    },
+
+    "output_formats": {
+        "csv": true,
+        "json": true,
+        "parquet": true
+    },
+
+    "logging": {
+        "level": "INFO"
+    }
+}

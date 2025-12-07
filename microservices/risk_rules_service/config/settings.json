@@ -1,0 +1,4 @@
+{
+    "port": 5002,
+    "log_path": "./logs/risk_rules_service.log"
+}

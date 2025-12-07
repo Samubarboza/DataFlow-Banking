@@ -7,7 +7,9 @@ data/processed/
 
 # Archivos CSV/JSON/PARQUET generados
 *.csv
-*.json
+clientes_final.json
+cuentas_final.json
+transacciones_final.json
 *.parquet
 
 # Entorno virtual
