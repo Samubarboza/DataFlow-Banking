@@ -2,8 +2,7 @@
 *.db
 
 # Archivos generados por el pipeline
-data/outputs/
-data/processed/
+
 
 # Archivos CSV/JSON/PARQUET generados
 *.csv

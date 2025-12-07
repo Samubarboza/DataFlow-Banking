@@ -6,6 +6,7 @@ from etl.extract import run_extract_completo
 from etl.transform import run_transform
 from etl.load import run_load
 from etl.utils import log
+from sql.demo_queries import consulta_sql
 
 
 def run_pipeline():
@@ -38,32 +39,12 @@ def run_pipeline():
         print("\nError crítico durante la ejecución del pipeline.")
         print(str(e))
         return
-    # Ejecución de consultas SQL de muestr
-    print("→ Ejecutando consultas demo en SQLite...\n")
-    BASE = Path(__file__).resolve().parent
-    con = sqlite3.connect(BASE / "db" / "banco.db")
+    
+    # consulta sql
+    log("Ejecutando consulta SQL...")
+    consulta_sql()
+    log("Consulta SQL finalizada")
 
-    def query(sql):
-        return con.execute(sql).fetchall()
-
-    print("Total de clientes:", query("SELECT COUNT(*) FROM clientes;"))
-    print("Saldo promedio por tipo:", query(
-        "SELECT tipo_cuenta, AVG(saldo_inicial) FROM cuentas GROUP BY tipo_cuenta;"
-    ))
-    # consulta sql
-    print("Top movimientos:", query(
-        """
-        SELECT cli.nombre, SUM(tr.monto) AS total
-        FROM transacciones tr
-        JOIN cuentas cu ON tr.id_cuenta = cu.id_cuenta
-        JOIN clientes cli ON cu.id_cliente = cli.id_cliente
-        GROUP BY cli.nombre
-        ORDER BY total DESC
-        LIMIT 5;
-        """
-    ))
-
-    con.close()
     # Tiempo tota
     fin = time.time()
     duracion = round(fin - inicio, 2) # redondeamos el resultado con 2 decimales nada mas
