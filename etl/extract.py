@@ -3,9 +3,7 @@ from pathlib import Path
 # Importamos utilidades centralizadas (settings, logs, call_api)
 from etl.utils import SETTINGS, call_api, log
 
-# 1) Rutas de los archivos
-
-# carpeta base del proyecto
+# objeto path q representa la ruta absoluta de este archivo
 BASE = Path(__file__).resolve().parent.parent
 
 # rutas de los datasets crudos
@@ -16,22 +14,20 @@ RUTA_TRANS = BASE / "data" / "raw" / "transacciones.csv"
 
 # 2) Funciones de carga
 def cargar_clientes():
-    """Lee clientes.csv y lo devuelve como DataFrame"""
+    # leemos la ruta clientes y devolvemos como dataframe
     return pd.read_csv(RUTA_CLIENTES)
 
 
 def cargar_cuentas():
-    """Lee cuentas.csv y lo devuelve como DataFrame"""
     return pd.read_csv(RUTA_CUENTAS)
 
 
 def cargar_transacciones():
-    """Lee transacciones.csv y lo devuelve como DataFrame"""
     return pd.read_csv(RUTA_TRANS)
 
 
 # funciones nuevas - extraccion de microservicios
-# --- Catalog Service ---
+# Catalog Service
 def get_catalogos():
     url = SETTINGS["microservices"]["catalog_service_url"]
     return call_api(url, "catalogos")
@@ -41,7 +37,7 @@ def get_normalizacion():
     return call_api(url, "normalizacion")
 
 
-# --- Risk Rules Service ---
+# Risk Rules Service
 def get_reglas_monto():
     url = SETTINGS["microservices"]["risk_rules_service_url"]
     return call_api(url, "reglas_monto")
@@ -60,13 +56,8 @@ def get_monedas_validas():
 
 
 # extraccion completa CSV + APIs
-
 def run_extract_completo():
-    """
-    Extrae:
-    - CSV: clientes, cuentas, transacciones
-    - API: catalogos, normalizacion, reglas de monto, edad, fecha, monedas válidas
-    """
+# extraemos los datos de los csv y de las apis y retornamos como diccionario con toda la informacion extraida
     log("=== Iniciando extracción completa ===")
 
     # CSVs
@@ -98,34 +89,3 @@ def run_extract_completo():
         "monedas_validas": monedas_validas
     }
 
-
-# 3) Módulo principal
-def run_extract():
-    print("\n=== Extrayendo datos ===\n")
-
-    clientes = cargar_clientes()
-    cuentas = cargar_cuentas()
-    trans = cargar_transacciones()
-
-    # Mostramos un vistazo rápido
-    print("CLIENTES (raw)")
-    print(clientes.head())
-    print(clientes.dtypes)
-    print("\n-------------------------\n")
-
-    print("CUENTAS (raw)")
-    print(cuentas.head())
-    print(cuentas.dtypes)
-    print("\n-------------------------\n")
-
-    print("TRANSACCIONES (raw)")
-    print(trans.head())
-    print(trans.dtypes)
-    print("\n-------------------------\n")
-
-    return clientes, cuentas, trans
-
-
-# Si ejecutás el archivo directamente: python extract.py
-if __name__ == "__main__":
-    run_extract()

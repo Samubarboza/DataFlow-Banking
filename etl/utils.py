@@ -29,7 +29,7 @@ def _init_db():
 _init_db()
 
 
-# Cargar configuración general
+# Cargar configuración general - leemos archivo json y lo retornamos como diccionario
 def load_settings():
     with open("config/settings.json", "r") as settings_file:
         return json.load(settings_file)
@@ -37,13 +37,12 @@ def load_settings():
 SETTINGS = load_settings()
 
 
-
 # Logging centralizado
 logging.basicConfig(
     filename=SETTINGS["logging"]['file'],
     level=logging.INFO,
     # formato de cada linea de logs que se guarda - % placeholder donde insertar un valor - s valor a insertar como strings
-    format="%(asctime)s - %(levelname)s - %(message)s" 
+    format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 def log(message, level="INFO"):
@@ -59,9 +58,6 @@ def log(message, level="INFO"):
     )
     conexion_db.commit()
     conexion_db.close()
-
-
-
 
 # Requests estándar para microservicios
 def call_api(url, endpoint):

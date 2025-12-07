@@ -1,6 +1,4 @@
 import time
-import sqlite3
-from pathlib import Path
 
 from etl.extract import run_extract_completo
 from etl.transform import run_transform
@@ -17,17 +15,17 @@ def run_pipeline():
 
     try:
         # 1) EXTRACT
-        print("→ Extrayendo datos...")
+        print("Extrayendo datos...")
         data = run_extract_completo()
         log("Extracción completa")
 
         # 2) TRANSFORM
-        print("→ Transformando datos...")
+        print("Transformando datos...")
         clientes_clean, cuentas_clean, trans_clean = run_transform(data)
         log("Transformación completa")
 
         # 3) LOAD
-        print("→ Cargando datos y generando outputs...")
+        print("Cargando datos y generando outputs...")
         run_load(clientes_clean, cuentas_clean, trans_clean)
         log("Carga finalizada")
 
