@@ -1,12 +1,12 @@
 
--- 1) Conteo básico de tablas
+-- 1 Conteo básico de tablas
 
 SELECT COUNT(*) AS total_clientes FROM clientes;
 SELECT COUNT(*) AS total_cuentas FROM cuentas;
 SELECT COUNT(*) AS total_transacciones FROM transacciones;
 
 
--- 2) Clientes activos vs inactivos
+-- 2 Clientes activos vs inactivos
 
 SELECT 
     activo,
@@ -15,7 +15,7 @@ FROM clientes
 GROUP BY activo;
 
 
--- 3) Saldo promedio por tipo de cuenta
+-- 3 Saldo promedio por tipo de cuenta
 
 SELECT 
     tipo_cuenta,
@@ -24,7 +24,7 @@ FROM cuentas
 GROUP BY tipo_cuenta;
 
 
--- 4) Total de transacciones por tipo
+-- 4 Total de transacciones por tipo
 
 SELECT 
     tipo,
@@ -34,7 +34,7 @@ FROM transacciones
 GROUP BY tipo;
 
 
--- 5) JOIN: clientes + cuentas
+-- 5 JOIN: clientes + cuentas
 
 SELECT 
     c.nombre,
@@ -45,7 +45,7 @@ FROM clientes c
 JOIN cuentas cu ON c.id_cliente = cu.id_cliente;
 
 
--- 6) JOIN completo con transacciones
+-- 6 JOIN completo con transacciones
 
 SELECT 
     cli.nombre,
@@ -60,7 +60,7 @@ JOIN clientes cli ON cue.id_cliente = cli.id_cliente
 ORDER BY tr.fecha;
 
 
--- 7) Total de movimientos por cliente
+-- 7 Total de movimientos por cliente
 
 SELECT 
     cli.nombre,
@@ -73,7 +73,7 @@ GROUP BY cli.nombre
 ORDER BY monto_total DESC;
 
 
--- 8) Segmentación: cliente "alto movimiento"
+-- 8 Segmentación: cliente "alto movimiento"
 
 SELECT 
     cli.nombre,
@@ -89,7 +89,7 @@ JOIN clientes cli ON cu.id_cliente = cli.id_cliente
 GROUP BY cli.nombre;
 
 
--- 9) Días con más actividad
+-- 9 Días con más actividad
 
 SELECT 
     DATE(fecha) AS dia,
@@ -99,7 +99,7 @@ GROUP BY DATE(fecha)
 ORDER BY cantidad_transacciones DESC;
 
 
--- 10) Detectar transacciones sospechosas
+-- 10 Detectar transacciones sospechosas
 
 SELECT *
 FROM transacciones

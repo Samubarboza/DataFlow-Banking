@@ -200,8 +200,3 @@ def run_transform(data):
     log("Transformación completa. Archivos generados en processed/")
 
     return clientes_clean, cuentas_clean, trans_clean
-
-
-if __name__ == "__main__":
-    from extract import run_extract
-    print("Este archivo debe ser ejecutado desde run_pipeline.py")
