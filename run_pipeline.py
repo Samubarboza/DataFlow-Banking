@@ -34,8 +34,7 @@ def run_pipeline():
     except Exception as e:
         log(f"ERROR en pipeline: {e}")
 
-        print("\nError crítico durante la ejecución del pipeline.")
-        print(str(e))
+        print(f"\nError crítico durante la ejecución del pipeline.\n{str(e)}")
         return
     
     # consulta sql
