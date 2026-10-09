@@ -1,4 +1,4 @@
-# **README — Sistema ETL con Microservicios de Normalización y Reglas**
+# **README  Sistema ETL con Microservicios de Normalización y Reglas**
 
 ## **Resumen del Proyecto**
 
@@ -229,17 +229,6 @@ El pipeline:
 
 ---
 
-## **Estado del Proyecto**
-
-Este proyecto está **en desarrollo activo**.
-La estructura, arquitectura y componentes principales están definidos, pero seguirán expandiéndose:
-
-* Nuevos endpoints
-* Nuevas reglas
-* Dashboard de logs
-* Métricas de calidad de datos
-* Test unitarios
-* Integración CI/CD
 
 El README se actualizará conforme avance el desarrollo.
 
